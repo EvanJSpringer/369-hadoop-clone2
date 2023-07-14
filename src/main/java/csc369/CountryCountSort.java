@@ -32,14 +32,13 @@ public class CountryCountSort {
     public static class ReducerImpl extends Reducer<IntWritable, Text, Text, IntWritable> {
         private Text result = new Text();
 
-        protected void reduce(Text value, Iterable<CountryCountPair> key,
+        protected void reduce(CountryCountPair key, Iterable<Text> value,
                               Context context) throws IOException, InterruptedException {
-            Iterator<CountryCountPair> itr = key.iterator();
-            String[] sa = value.toString().split("\t");
+            Iterator<Text> itr = value.iterator();
             while (itr.hasNext()){
-                //result.set(itr.next());
+                String[] sa = itr.next().toString().split("\t");
                 Text res = new Text(sa[0] + sa[1]);
-                context.write(res, itr.next().getCount());
+                context.write(res, key.getCount());
             }
        }
     }
