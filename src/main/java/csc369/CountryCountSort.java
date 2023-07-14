@@ -29,9 +29,10 @@ public class CountryCountSort {
         }
     }
 
-    public static class ReducerImpl extends Reducer<IntWritable, Text, Text, IntWritable> {
+    public static class ReducerImpl extends Reducer<CountryCountPair, Text, Text, IntWritable> {
         private Text result = new Text();
 
+        @Override
         protected void reduce(CountryCountPair key, Iterable<Text> value,
                               Context context) throws IOException, InterruptedException {
             Iterator<Text> itr = value.iterator();
