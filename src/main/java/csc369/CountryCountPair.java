@@ -43,6 +43,10 @@ public class CountryCountPair
         return host.compareTo(pair.getHostname());
     }
 
+    public String toString(){
+        return host + "\t" + count.get();
+    }
+
     public Text getHostname() {
         return host;
     }
