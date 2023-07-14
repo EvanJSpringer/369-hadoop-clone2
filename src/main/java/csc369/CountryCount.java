@@ -46,17 +46,17 @@ public class CountryCount {
 
         @Override
         public void reduce(Text key, Iterable<Text> values, Context context)  throws IOException, InterruptedException {
-            Text country = new Text("a");
+            String country = "";
             //IntWritable count;
             int sum = 0;
             for (Text val : values) {
                 if (Character.isDigit(val.toString().charAt(0))){
                     sum += Integer.parseInt(val.toString());
                 } else {
-                    country = val;
+                    country = val.toString();
                 }
             }
-            context.write(country, new IntWritable(sum));
+            context.write(new Text(country), new IntWritable(sum));
         }
     }
 
