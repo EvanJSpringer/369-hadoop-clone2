@@ -68,7 +68,14 @@ public class HadoopApp {
 		job.setOutputKeyClass(CountryCount.OUTPUT_KEY_CLASS);
 		job.setOutputValueClass(CountryCount.OUTPUT_VALUE_CLASS);
 		FileOutputFormat.setOutputPath(job, new Path(otherArgs[3]));
-	} else {
+	} else if ("CountryCountCombine".equalsIgnoreCase(otherArgs[0])) {
+		job.setReducerClass(CountryCountCombine.ReducerImpl.class);
+		job.setMapperClass(CountryCountCombine.MapperImpl.class);
+		job.setOutputKeyClass(CountryCountCombine.OUTPUT_KEY_CLASS);
+		job.setOutputValueClass(CountryCountCombine.OUTPUT_VALUE_CLASS);
+		FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
+	}  else {
 	    System.out.println("Unrecognized job: " + otherArgs[0]);
 	    System.exit(-1);
 	}
