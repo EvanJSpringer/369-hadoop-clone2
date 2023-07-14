@@ -56,7 +56,7 @@ public class CountryCount {
                     country = val;
                 }
             }
-            context.write(key, new IntWritable(sum));
+            context.write(country, new IntWritable(sum));
         }
     }
 
