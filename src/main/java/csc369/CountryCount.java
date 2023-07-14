@@ -21,9 +21,9 @@ public class CountryCount {
                            Context context) throws IOException, InterruptedException {
             String[] sa = value.toString().split(",");
             Text hostname = new Text();
-            hostname.set(sa[0]);
+            hostname.set(key);
             Text country = new Text();
-            country.set("country");
+            country.set(sa[0]);
             context.write(hostname, country);
         }
     }
