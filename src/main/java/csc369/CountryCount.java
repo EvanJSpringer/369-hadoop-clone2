@@ -13,8 +13,8 @@ import java.util.Iterator;
 public class CountryCount {
 
     public static final Class OUTPUT_KEY_CLASS = Text.class;
-    public static final Class OUTPUT_VALUE_CLASS = IntWritable.class;
-    
+    public static final Class OUTPUT_VALUE_CLASS = Text.class;
+
     public static class CountryMapper extends Mapper<LongWritable, Text, Text, Text> {
         @Override
         protected void map(LongWritable key, Text value,
@@ -28,19 +28,21 @@ public class CountryCount {
         }
     }
 
-    public static class LogMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+    public static class LogMapper extends Mapper<LongWritable, Text, Text, Text> {
         private final IntWritable one = new IntWritable(1);
         @Override
         public void map(LongWritable key, Text value, Context context)  throws IOException, InterruptedException {
             String text[] = value.toString().split(" ");
             Text hostname = new Text();
             hostname.set(text[0]);
-            context.write(hostname, one);
+            Text count = new Text();
+            count.set("1");
+            context.write(hostname, count);
         }
     }
 
     //  Reducer: just one reducer class to perform the "join"
-    public static class JoinReducer extends  Reducer<Text, Text, Text, IntWritable> {
+    public static class JoinReducer extends  Reducer<Text, Text, Text, Text> {
 
         @Override
         public void reduce(Text key, Iterable<Text> values, Context context)  throws IOException, InterruptedException {
