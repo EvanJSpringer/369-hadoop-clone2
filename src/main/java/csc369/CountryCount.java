@@ -42,7 +42,7 @@ public class CountryCount {
     }
 
     //  Reducer: just one reducer class to perform the "join"
-    public static class JoinReducer extends  Reducer<Text, Text, Text, Text> {
+    public static class JoinReducer extends  Reducer<Text, Text, Text, IntWritable> {
 
         @Override
         public void reduce(Text key, Iterable<Text> values, Context context)  throws IOException, InterruptedException {
