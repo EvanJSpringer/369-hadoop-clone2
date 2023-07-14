@@ -40,7 +40,7 @@ public class CountryCountByURL {
                 sum  += itr.next().get();
             }
             result.set(sum);
-            String res = key.getHostname().toString() + key.getURL().toString();
+            String res = key.getHostname().toString() + "\t" + key.getURL().toString();
             context.write(new Text(res), result);
         }
     }
