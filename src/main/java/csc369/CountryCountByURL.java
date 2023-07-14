@@ -28,7 +28,7 @@ public class CountryCountByURL {
     }
 
     //  Reducer: just one reducer class to perform the "join"
-    public static class ReducerImpl extends  Reducer<urlcountPair, IntWritable, urlcountPair, IntWritable> {
+    public static class ReducerImpl extends  Reducer<urlcountPair, IntWritable, Text, IntWritable> {
 
         private IntWritable result = new IntWritable();
         @Override
@@ -40,7 +40,8 @@ public class CountryCountByURL {
                 sum  += itr.next().get();
             }
             result.set(sum);
-            context.write(key, result);
+            String res = key.getHostname().toString() + key.getURL().toString();
+            context.write(new Text(res), result);
         }
     }
 

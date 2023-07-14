@@ -39,8 +39,10 @@ public class urlcountPair
         return url.compareTo(pair.getURL());
     }
 
-    public Text getURL() {
+    public Text getHostname() {
         return url;
     }
-
+    public Text getURL() {
+        return count;
+    }
 }
