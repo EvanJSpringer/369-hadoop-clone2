@@ -46,7 +46,7 @@ public class CountryCount {
 
         @Override
         public void reduce(Text key, Iterable<Text> values, Context context)  throws IOException, InterruptedException {
-            Text country = key;
+            Text country = new Text("a");
             //IntWritable count;
             int sum = 0;
             for (Text val : values) {
