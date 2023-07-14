@@ -14,7 +14,7 @@ public class CountryCountByURL {
     public static final Class OUTPUT_KEY_CLASS = Text.class;
     public static final Class OUTPUT_VALUE_CLASS = Text.class;
 
-    public static class LogMapper extends Mapper<LongWritable, Text, urlcountPair, IntWritable> {
+    public static class MapperImpl extends Mapper<LongWritable, Text, urlcountPair, IntWritable> {
         private final IntWritable one = new IntWritable(1);
         @Override
         public void map(LongWritable key, Text value, Context context)  throws IOException, InterruptedException {
@@ -28,7 +28,7 @@ public class CountryCountByURL {
     }
 
     //  Reducer: just one reducer class to perform the "join"
-    public static class JoinReducer extends  Reducer<urlcountPair, IntWritable, urlcountPair, IntWritable> {
+    public static class ReducerImpl extends  Reducer<urlcountPair, IntWritable, urlcountPair, IntWritable> {
 
         private IntWritable result = new IntWritable();
         @Override
