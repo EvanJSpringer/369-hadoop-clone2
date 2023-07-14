@@ -15,11 +15,11 @@ public class CountryCount {
     public static final Class OUTPUT_KEY_CLASS = Text.class;
     public static final Class OUTPUT_VALUE_CLASS = Text.class;
 
-    public static class CountryMapper extends Mapper<LongWritable, Text, Text, Text> {
+    public static class CountryMapper extends Mapper<Text, Text, Text, Text> {
         @Override
-        protected void map(LongWritable key, Text value,
+        protected void map(Text key, Text value,
                            Context context) throws IOException, InterruptedException {
-            String[] sa = value.toString().split(" ");
+            String[] sa = value.toString().split(",");
             Text hostname = new Text();
             hostname.set(sa[0]);
             Text country = new Text();
