@@ -23,8 +23,8 @@ public class CountryCountCombine {
             String[] sa = value.toString().split("\t");
             Text hostname = new Text();
             hostname.set(sa[0]);
-            IntWritable count = new IntWritable(Integer.parseInt(sa[0]));
-            context.write(hostname, one);
+            IntWritable count = new IntWritable(Integer.parseInt(sa[1]));
+            context.write(hostname, count);
         }
     }
 
