@@ -11,8 +11,8 @@ import java.util.Iterator;
 
 public class CountryCountByURL {
 
-    public static final Class OUTPUT_KEY_CLASS = Text.class;
-    public static final Class OUTPUT_VALUE_CLASS = Text.class;
+    public static final Class OUTPUT_KEY_CLASS = urlcountPair.class;
+    public static final Class OUTPUT_VALUE_CLASS = IntWritable.class;
 
     public static class MapperImpl extends Mapper<LongWritable, Text, urlcountPair, IntWritable> {
         private final IntWritable one = new IntWritable(1);
