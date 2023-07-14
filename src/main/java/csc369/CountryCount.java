@@ -19,12 +19,12 @@ public class CountryCount {
         @Override
         protected void map(Text key, Text value,
                            Context context) throws IOException, InterruptedException {
-            String[] sa = value.toString().split(",");
+            /*String[] sa = value.toString().split(",");
             Text hostname = new Text();
             hostname.set(key);
             Text country = new Text();
-            country.set(sa[0]);
-            context.write(hostname, country);
+            country.set(sa[0]);*/
+            context.write(key, value);
         }
     }
 
