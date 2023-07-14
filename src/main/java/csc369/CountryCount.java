@@ -23,7 +23,7 @@ public class CountryCount {
             Text hostname = new Text();
             hostname.set(sa[0]);
             Text country = new Text();
-            country.set(sa[1]);
+            country.set(sa[0]);
             context.write(hostname, country);
         }
     }
