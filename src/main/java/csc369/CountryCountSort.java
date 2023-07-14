@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 public class CountryCountSort {
 
-    public static final Class OUTPUT_KEY_CLASS = IntWritable.class;
+    public static final Class OUTPUT_KEY_CLASS = CountryCountPair.class;
     public static final Class OUTPUT_VALUE_CLASS = Text.class;
 
     public static class MapperImpl extends Mapper<LongWritable, Text, CountryCountPair, Text> {
