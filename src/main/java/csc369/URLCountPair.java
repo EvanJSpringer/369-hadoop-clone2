@@ -1,22 +1,25 @@
 package csc369;
 
-import java.io.IOException;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
+
 import java.io.DataInput;
 import java.io.DataOutput;
-import org.apache.hadoop.io.*;
+import java.io.IOException;
 
-public class urlcountPair
-        implements Writable, WritableComparable<urlcountPair> {
+public class URLCountPair
+        implements Writable, WritableComparable<URLCountPair> {
 
     private final Text url = new Text();
     private final Text count = new Text();
 
-    public urlcountPair() {
+    public URLCountPair() {
     }
 
-    public urlcountPair(String url, String count) {
+    public URLCountPair(String host, String url) {
         this.url.set(url);
-        this.count.set(count);
+        this.count.set(host);
     }
 
     @Override
@@ -32,17 +35,17 @@ public class urlcountPair
     }
 
     @Override
-    public int compareTo(urlcountPair pair) {
+    public int compareTo(URLCountPair pair) {
         if (url.compareTo(pair.getURL()) == 0) {
             return count.compareTo(pair.count);
         }
         return url.compareTo(pair.getURL());
     }
 
-    public Text getHostname() {
-        return url;
+    public Text getCount() {
+        return count;
     }
     public Text getURL() {
-        return count;
+        return url;
     }
 }

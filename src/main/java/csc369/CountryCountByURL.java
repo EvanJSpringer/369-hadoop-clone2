@@ -7,41 +7,50 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 public class CountryCountByURL {
 
-    public static final Class OUTPUT_KEY_CLASS = urlcountPair.class;
-    public static final Class OUTPUT_VALUE_CLASS = IntWritable.class;
+    public static final Class OUTPUT_KEY_CLASS = Text.class;
+    public static final Class OUTPUT_VALUE_CLASS = Text.class;
 
-    public static class MapperImpl extends Mapper<LongWritable, Text, urlcountPair, IntWritable> {
+    public static class CountryMapper extends Mapper<Text, Text, Text, Text> {
+        @Override
+        protected void map(Text key, Text value,
+                           Context context) throws IOException, InterruptedException {
+            /*String[] sa = value.toString().split(",");
+            Text hostname = new Text();
+            hostname.set(key); */
+            context.write(key, value);
+        }
+    }
+
+    public static class LogMapper extends Mapper<LongWritable, Text, Text, Text> {
         private final IntWritable one = new IntWritable(1);
         @Override
         public void map(LongWritable key, Text value, Context context)  throws IOException, InterruptedException {
-            String text[] = value.toString().split(" ");
+            String text[] = value.toString().split("\t");
             Text hostname = new Text();
             hostname.set(text[0]);
-            urlcountPair newKey = new urlcountPair(text[0], text[6]);
-
-            context.write(newKey, one);
+            Text val = new Text(text[1] + "\t" + text[2]);
+            context.write(hostname, val);
         }
     }
 
     //  Reducer: just one reducer class to perform the "join"
-    public static class ReducerImpl extends  Reducer<urlcountPair, IntWritable, Text, IntWritable> {
+    public static class JoinReducer extends  Reducer<Text, Text, Text, Text> {
 
-        private IntWritable result = new IntWritable();
         @Override
-        public void reduce(urlcountPair key, Iterable<IntWritable> values, Context context)  throws IOException, InterruptedException {
-            int sum = 0;
-            Iterator<IntWritable> itr = values.iterator();
-
-            while (itr.hasNext()){
-                sum  += itr.next().get();
+        public void reduce(Text key, Iterable<Text> values, Context context)  throws IOException, InterruptedException {
+            String country = "";
+            String other = "";
+            for (Text val : values) {
+                if (val.toString().charAt(0) == '/'){
+                    other = val.toString();
+                } else {
+                    country = val.toString();
+                }
             }
-            result.set(sum);
-            String res = key.getHostname().toString() + "\t" + key.getURL().toString();
-            context.write(new Text(res), result);
+            context.write(new Text(country), new Text(other));
         }
     }
 

@@ -2,10 +2,6 @@ package csc369;
 
 import java.io.IOException;
 
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
-
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.conf.Configuration;
@@ -83,10 +79,10 @@ public class HadoopApp {
 		FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
 		FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
 	} else if ("CountryCountByURL".equalsIgnoreCase(otherArgs[0])) {
-		job.setReducerClass(CountryCountByURL.ReducerImpl.class);
-		job.setMapperClass(CountryCountByURL.MapperImpl.class);
-		job.setOutputKeyClass(CountryCountByURL.OUTPUT_KEY_CLASS);
-		job.setOutputValueClass(CountryCountByURL.OUTPUT_VALUE_CLASS);
+		job.setReducerClass(HostCountByURL.ReducerImpl.class);
+		job.setMapperClass(HostCountByURL.MapperImpl.class);
+		job.setOutputKeyClass(HostCountByURL.OUTPUT_KEY_CLASS);
+		job.setOutputValueClass(HostCountByURL.OUTPUT_VALUE_CLASS);
 		FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
 		FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
 	} else {
