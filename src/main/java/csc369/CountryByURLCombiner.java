@@ -50,8 +50,8 @@ public class CountryByURLCombiner {
                               Context context) throws IOException, InterruptedException {
             Iterator<Text> itr = countries.iterator();
             ArrayList<String> vals = new ArrayList<>();
-            while (itr.hasNext()){
-                if (vals.size() == 0 || !(itr.next().toString().equals(vals.get(vals.size() - 1)))){
+            for (Text country : countries){
+                if (vals.size() == 0 || !(country.toString().equals(vals.get(vals.size() - 1)))){
                     vals.add(itr.next().toString());
                 }
             }
