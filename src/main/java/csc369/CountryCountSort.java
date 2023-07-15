@@ -38,7 +38,7 @@ public class CountryCountSort {
             Iterator<Text> itr = value.iterator();
             while (itr.hasNext()){
                 String[] sa = itr.next().toString().split("\t");
-                Text res = new Text(sa[0] + sa[1]);
+                Text res = new Text(sa[0] + "\t" + sa[1]);
                 context.write(res, key.getCount());
             }
        }

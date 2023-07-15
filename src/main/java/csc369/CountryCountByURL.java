@@ -7,6 +7,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CountryCountByURL {
 
@@ -42,15 +43,17 @@ public class CountryCountByURL {
         @Override
         public void reduce(Text key, Iterable<Text> values, Context context)  throws IOException, InterruptedException {
             String country = "";
-            String other = "";
+            ArrayList<String> others = new ArrayList<>();
             for (Text val : values) {
                 if (val.toString().charAt(0) == '/'){
-                    other = val.toString();
+                    others.add(val.toString());
                 } else {
                     country = val.toString();
                 }
             }
-            context.write(new Text(country), new Text(other));
+            for (String v : others){
+                context.write(new Text(country), new Text(v));
+            }
         }
     }
 
