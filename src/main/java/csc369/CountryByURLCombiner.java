@@ -6,6 +6,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class CountryByURLCombiner {
@@ -51,15 +52,16 @@ public class CountryByURLCombiner {
             Iterator<Text> itr = countries.iterator();
             ArrayList<String> vals = new ArrayList<>();
             for (Text country : countries){
-                if (vals.size() == 0 || !(country.toString().equals(vals.get(vals.size() - 1)))){
+                if (!vals.contains(country.toString())){
                     vals.add(country.toString());
                 }
             }
+            Collections.sort(vals);
             StringBuilder countryList = new StringBuilder();
             for (String val : vals){
                 countryList.append(", ").append(val);
             }
-            context.write(word, new Text(countryList.toString()));
+            context.write(word, new Text(countryList.substring(2)));
         }
     }
 
