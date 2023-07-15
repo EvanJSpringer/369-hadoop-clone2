@@ -117,7 +117,7 @@ public class HadoopApp {
 	} else if ("CountryByURLCombiner".equalsIgnoreCase(otherArgs[0])) {
 		job.setReducerClass(CountryByURLCombiner.ReducerImpl.class);
 		job.setMapperClass(CountryByURLCombiner.MapperImpl.class);
-		
+
 		job.setSortComparatorClass(CountryByURLCombiner.SortComparator.class);
 
 		job.setOutputKeyClass(CountryByURLCombiner.OUTPUT_KEY_CLASS);
