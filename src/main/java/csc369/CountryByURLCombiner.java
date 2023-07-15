@@ -52,7 +52,7 @@ public class CountryByURLCombiner {
             ArrayList<String> vals = new ArrayList<>();
             for (Text country : countries){
                 if (vals.size() == 0 || !(country.toString().equals(vals.get(vals.size() - 1)))){
-                    vals.add(itr.next().toString());
+                    vals.add(country.toString());
                 }
             }
             StringBuilder countryList = new StringBuilder();
